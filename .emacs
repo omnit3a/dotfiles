@@ -61,6 +61,6 @@
 (global-set-key (kbd "C-p") 'yank)
 (global-set-key (kbd "C-g") 'goto-line)
 (global-set-key (kbd "C-x m") 'compilation-function)
-(global-set-key (kbd "C-r") 'run-function)
+(global-set-key (kbd "C-x r") 'run-function)
 (global-set-key (kbd "M-a") 'select-block)
 (global-set-key (kbd "C-x C-c") 'close-binding)
