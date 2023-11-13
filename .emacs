@@ -8,7 +8,6 @@
    '("72ed8b6bffe0bfa8d097810649fd57d2b598deef47c992920aef8b5d9599eefe" default))
  '(inhibit-startup-screen t)
  '(package-selected-packages '(gruvbox-theme)))
-65;7006;1c
 (column-number-mode 1)
 (show-paren-mode 1)
 
