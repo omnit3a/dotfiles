@@ -1,16 +1,23 @@
+(load-file "~/.emacs.d/highlight-indent-guides.el")
+
 (custom-set-variables
-;;; custom-set-variables was added by Custom.
+ ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(gruvbox-dark-medium))
  '(custom-safe-themes
    '("72ed8b6bffe0bfa8d097810649fd57d2b598deef47c992920aef8b5d9599eefe" default))
+ '(highlight-indent-guides-character 124)
+ '(highlight-indent-guides-method 'character)
  '(inhibit-startup-screen t)
  '(package-selected-packages '(gruvbox-theme)))
 
 (column-number-mode 1)
 (show-paren-mode 1)
+
+(require 'highlight-indent-guides)
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 
 (defun compile-search (command)
   "Traveling up the path, find a Makefile and `compile'."
@@ -64,3 +71,10 @@
 (global-set-key (kbd "C-x r") 'run-function)
 (global-set-key (kbd "M-a") 'select-block)
 (global-set-key (kbd "C-x C-c") 'close-binding)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
