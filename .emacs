@@ -33,6 +33,8 @@
 	)
       )
 
+;; close compilation window if it exists,
+;; otherwise, exit emacs
 (defun close-binding (arg)
   (interactive "p")
   (if (get-buffer "*compilation*")
