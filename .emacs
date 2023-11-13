@@ -72,6 +72,8 @@
 (global-set-key (kbd "M-a") 'select-block)
 (global-set-key (kbd "C-x C-c") 'close-binding)
 
+(setq make-backup-files nil)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
