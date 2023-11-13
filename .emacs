@@ -12,9 +12,14 @@
 (column-number-mode 1)
 (show-paren-mode 1)
 
-(defun compilation-functions (arg)
+(defun compilation-function (arg)
   (interactive "p")
   (compile "make -k") 
+  )
+
+(defun run-function (arg)
+  (interactive "p")
+  (compile "make run")
   )
 
 (defun select-block (arg)
@@ -33,8 +38,6 @@
 	)
       )
 
-;; close compilation window if it exists,
-;; otherwise, exit emacs
 (defun close-binding (arg)
   (interactive "p")
   (if (get-buffer "*compilation*")
@@ -49,6 +52,7 @@
 (global-set-key (kbd "C-y") 'kill-ring-save)
 (global-set-key (kbd "C-p") 'yank)
 (global-set-key (kbd "C-g") 'goto-line)
-(global-set-key (kbd "C-x m") 'compilation-functions)
+(global-set-key (kbd "C-x m") 'compilation-function)
+(global-set-key (kbd "C-r") 'run-function)
 (global-set-key (kbd "M-a") 'select-block)
 (global-set-key (kbd "C-x C-c") 'close-binding)
