@@ -8,17 +8,26 @@
    '("72ed8b6bffe0bfa8d097810649fd57d2b598deef47c992920aef8b5d9599eefe" default))
  '(inhibit-startup-screen t)
  '(package-selected-packages '(gruvbox-theme)))
+
 (column-number-mode 1)
 (show-paren-mode 1)
 
+(defun compile-search (command)
+  "Traveling up the path, find a Makefile and `compile'."
+  (interactive)
+  (when (locate-dominating-file default-directory "Makefile")
+  (with-temp-buffer
+    (cd (locate-dominating-file default-directory "Makefile"))
+    (compile command))))
+
 (defun compilation-function (arg)
   (interactive "p")
-  (compile "make -k") 
+  (compile-search "make -k") 
   )
 
 (defun run-function (arg)
   (interactive "p")
-  (compile "make run")
+  (compile-search "make run")
   )
 
 (defun select-block (arg)
