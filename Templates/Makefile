@@ -7,7 +7,7 @@ LIBS=
 SOURCE-DIR=.
 INCLUDE-DIR=.
 
-SRCS:=$(shell find $(SOURCE-DIR) -name '*.c')
+SRCS:=$(shell find . -name '*.c')
 OBJS=$(wildcard *.o)
 
 all: link $(PROJECT-NAME)
