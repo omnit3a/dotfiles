@@ -13,7 +13,7 @@ OBJS=$(wildcard *.o)
 all: link $(PROJECT-NAME)
 
 link: $(SRCS)
-	gcc -c $^ $(CFLAGS) $(LIBS)
+	$(CC) -c $^ $(CFLAGS) $(LIBS)
 
 $(PROJECT-NAME): $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
