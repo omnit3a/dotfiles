@@ -16,8 +16,9 @@
  '(package-selected-packages '(gruvbox-theme)))
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(setq line-number-mode t)
-(setq show-paren-mode t)
+(line-number-mode 1)
+(show-paren-mode 1)
+(blink-cursor-mode 0)
 
 (require 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
