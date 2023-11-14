@@ -22,6 +22,7 @@
 (require 'column-enforce-mode)
 (global-column-enforce-mode t)
 (setq column-enforce-comments nil)
+(setq column-enforce-column 60)
 
 (defun compile-search (command)
   "Traveling up the path, find a Makefile and `compile'."
