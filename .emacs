@@ -1,5 +1,6 @@
 (load-file "~/.emacs.d/highlight-indent-guides.el")
 (load-file "~/.emacs.d/column-enforce-mode.el")
+(load-file "~/.emacs.d/goto-line-preview.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -14,15 +15,19 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages '(gruvbox-theme)))
 
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq line-number-mode t)
 (setq show-paren-mode t)
 
 (require 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+
 (require 'column-enforce-mode)
 (global-column-enforce-mode t)
 (setq column-enforce-comments nil)
 (setq column-enforce-column 60)
+
+(require 'goto-line-preview)
 
 (defun compile-search (command)
   "Traveling up the path, find a Makefile and `compile'."
@@ -35,11 +40,6 @@
 (defun compilation-function (arg)
   (interactive "p")
   (compile-search "make -k") 
-  )
-
-(defun run-function (arg)
-  (interactive "p")
-  (compile-search "make run")
   )
 
 (defun select-block (arg)
@@ -71,9 +71,8 @@
 
 (global-set-key (kbd "C-y") 'kill-ring-save)
 (global-set-key (kbd "C-p") 'yank)
-(global-set-key (kbd "C-g") 'goto-line)
+(global-set-key (kbd "C-g") 'goto-line-preview)
 (global-set-key (kbd "C-x m") 'compilation-function)
-(global-set-key (kbd "C-x r") 'run-function)
 (global-set-key (kbd "M-a") 'select-block)
 (global-set-key (kbd "C-x C-c") 'close-binding)
 
