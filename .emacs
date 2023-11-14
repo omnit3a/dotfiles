@@ -31,24 +31,11 @@
 (require 'goto-line-preview)
 
 (defun compile-search (command)
-  "Traveling up the path, find a Makefile and `compile'."
   (interactive)
   (when (locate-dominating-file default-directory "Makefile")
   (with-temp-buffer
     (cd (locate-dominating-file default-directory "Makefile"))
     (compile command))))
-
-(defun electric-pair ()
-      (interactive)
-      (if (eolp) (let (parens-require-spaces) (insert-pair))
-      (self-insert-command 1)))
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (global-set-key "\"" 'electric-pair)
-            (global-set-key "\'" 'electric-pair)
-            (global-set-key "(" 'electric-pair)
-            (global-set-key "[" 'electric-pair)
-            (global-set-key "{" 'electric-pair)))
 
 (defun compilation-function (arg)
   (interactive "p")
