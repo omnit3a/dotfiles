@@ -26,7 +26,7 @@
 (require 'column-enforce-mode)
 (global-column-enforce-mode t)
 (setq column-enforce-comments nil)
-(setq column-enforce-column 60)
+(setq column-enforce-column 80)
 
 (require 'goto-line-preview)
 
