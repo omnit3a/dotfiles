@@ -1,4 +1,5 @@
 (load-file "~/.emacs.d/highlight-indent-guides.el")
+(load-file "~/.emacs.d/column-enforce-mode.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -13,11 +14,14 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages '(gruvbox-theme)))
 
-(column-number-mode 1)
-(show-paren-mode 1)
+(setq line-number-mode t)
+(setq show-paren-mode t)
 
 (require 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(require 'column-enforce-mode)
+(global-column-enforce-mode t)
+(setq column-enforce-comments nil)
 
 (defun compile-search (command)
   "Traveling up the path, find a Makefile and `compile'."
