@@ -13,10 +13,11 @@
  '(highlight-indent-guides-character 124)
  '(highlight-indent-guides-method 'character)
  '(inhibit-startup-screen t)
- '(package-selected-packages '(gruvbox-theme)))
+ '(package-selected-packages '(haskell-mode org-modern gruvbox-theme)))
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (line-number-mode 1)
+(column-number-mode 1)
 (show-paren-mode 1)
 (blink-cursor-mode 0)
 
