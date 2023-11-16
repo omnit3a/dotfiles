@@ -46,7 +46,6 @@
 (setq telephone-line-secondary-right-separator
       telephone-line-halfsin-right)
 
-
 (telephone-line-mode 1)
 
 (require 'highlight-indent-guides)
@@ -79,6 +78,16 @@
 (setq special-display-buffer-names
       '("*compilation*")
       )
+
+(add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (push '(">=" . "≥") prettify-symbols-alist)
+	      (push '("<=" . "≤") prettify-symbols-alist)
+	      (push '("!=" . "≠") prettify-symbols-alist)
+	      (push '("sqrt" . "√") prettify-symbols-alist)
+	      (push '("<<" . "≪") prettify-symbols-alist)
+	      (push '(">>" . "≫") prettify-symbols-alist)))
+(global-prettify-symbols-mode 1)
 
 (setq special-display-function
       (lambda (buffer &optional args)
@@ -122,5 +131,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "IosevkaTerm Nerd Font Propo" :foundry "UKWN" :slant normal :weight medium :height 128 :width normal)))))
+)
 
