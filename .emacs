@@ -7,19 +7,47 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode nil)
+ '(column-number-mode t)
  '(custom-enabled-themes '(gruvbox-dark-medium))
  '(custom-safe-themes
    '("72ed8b6bffe0bfa8d097810649fd57d2b598deef47c992920aef8b5d9599eefe" default))
+ '(display-line-numbers-type 'relative)
+ '(fringe-mode 0 nil (fringe))
  '(highlight-indent-guides-character 124)
  '(highlight-indent-guides-method 'character)
  '(inhibit-startup-screen t)
- '(package-selected-packages '(haskell-mode org-modern gruvbox-theme)))
+ '(package-selected-packages '(telephone-line haskell-mode org-modern gruvbox-theme))
+ '(menu-bar-mode nil)
+ '(scroll-bar-mode nil)
+ '(tool-bar-mode nil)
+ '(tooltip-mode nil))
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (line-number-mode 1)
 (column-number-mode 1)
 (show-paren-mode 1)
 (blink-cursor-mode 0)
+
+(require 'telephone-line)
+(setq telephone-line-lhs
+      '((nil    . (telephone-line-vc-segment))
+	(accent . (telephone-line-position-segment))
+	(nil    . ())))
+(setq telephone-line-rhs
+        '((nil    . ())))
+
+(setq telephone-line-primary-left-separator
+      telephone-line-identity-left)
+
+(setq telephone-line-primary-right-separator
+      telephone-line-halfsin-right)
+
+(setq telephone-line-secondary-right-separator
+      telephone-line-halfsin-right)
+
+
+(telephone-line-mode 1)
 
 (require 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
@@ -79,9 +107,11 @@
 
 (setq make-backup-files nil)
 
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "IosevkaTerm Nerd Font Propo" :foundry "UKWN" :slant normal :weight semi-bold :height 128 :width normal)))))
+
