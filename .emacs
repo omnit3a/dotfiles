@@ -96,11 +96,20 @@
     
   )
 
+(defun goto-line-relative (arg)
+  (interactive "p")
+  (setq line-goto (read-number "Jump to line: "))
+  (if (< line-goto 0)
+      (previous-line (* line-goto -1))
+      (next-line line-goto))
+  )
+
 (setq c-default-style "linux")
 
 (global-set-key (kbd "C-y") 'kill-ring-save)
 (global-set-key (kbd "C-p") 'yank)
 (global-set-key (kbd "C-g") 'goto-line-preview)
+(global-set-key (kbd "C-x g") 'goto-line-relative)
 (global-set-key (kbd "C-x m") 'compilation-function)
 (global-set-key (kbd "M-a") 'select-block)
 (global-set-key (kbd "C-x C-c") 'close-binding)
@@ -113,5 +122,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "IosevkaTerm Nerd Font Propo" :foundry "UKWN" :slant normal :weight semi-bold :height 128 :width normal)))))
+ '(default ((t (:family "IosevkaTerm Nerd Font Propo" :foundry "UKWN" :slant normal :weight medium :height 128 :width normal)))))
 
