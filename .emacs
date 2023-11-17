@@ -80,7 +80,7 @@
       '("*compilation*")
       )
 
-(add-hook 'emacs-lisp-mode-hook
+(add-hook 'prog-mode-hook
             (lambda ()
               (push '(">=" . "≥") prettify-symbols-alist)
 	      (push '("<=" . "≤") prettify-symbols-alist)
