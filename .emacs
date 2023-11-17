@@ -25,6 +25,7 @@
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (line-number-mode 1)
+(setq shift-select-mode t)
 (column-number-mode 1)
 (show-paren-mode 1)
 (blink-cursor-mode 0)
