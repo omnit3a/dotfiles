@@ -1,6 +1,6 @@
 
 (define-generic-mode presley-mode
-  (list ?#)
+  nil
   (list "def-func" "let" "lambda")
   '(("true" . 'font-lock-constant-face)
     ("false" . 'font-lock-constant-face))
