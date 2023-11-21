@@ -1,6 +1,9 @@
 (load-file "~/.emacs.d/highlight-indent-guides.el")
 (load-file "~/.emacs.d/column-enforce-mode.el")
 (load-file "~/.emacs.d/goto-line-preview.el")
+(load-file "~/.emacs.d/presley-mode.el")
+
+(setq c-default-style "linux")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -114,7 +117,7 @@
       (next-line line-goto))
   )
 
-(setq c-default-style "linux")
+;;(setq c-default-style "linux")
 
 (global-set-key (kbd "C-y") 'kill-ring-save)
 (global-set-key (kbd "C-p") 'yank)
@@ -125,7 +128,6 @@
 (global-set-key (kbd "C-x C-c") 'close-binding)
 
 (setq make-backup-files nil)
-
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
