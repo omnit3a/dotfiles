@@ -3,7 +3,7 @@
 (load-file "~/.emacs.d/goto-line-preview.el")
 (load-file "~/.emacs.d/presley-mode.el")
 
-(setq c-default-style "linux")
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -89,8 +89,11 @@
 	      (push '("<=" . "≤") prettify-symbols-alist)
 	      (push '("!=" . "≠") prettify-symbols-alist)
 	      (push '("sqrt" . "√") prettify-symbols-alist)
-	      (push '("<<" . "≪") prettify-symbols-alist)
-	      (push '(">>" . "≫") prettify-symbols-alist)))
+	      (push '("<<" . "«") prettify-symbols-alist)
+	      (push '(">>" . "»") prettify-symbols-alist)
+	      (push '("->" . "→") prettify-symbols-alist)
+	      (push '("<-" . "←") prettify-symbols-alist)))
+
 (global-prettify-symbols-mode 1)
 
 (setq special-display-function
@@ -117,7 +120,7 @@
       (next-line line-goto))
   )
 
-;;(setq c-default-style "linux")
+(setq c-default-style "linux")
 
 (global-set-key (kbd "C-y") 'kill-ring-save)
 (global-set-key (kbd "C-p") 'yank)
