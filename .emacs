@@ -36,6 +36,7 @@
 (column-number-mode 1)
 (show-paren-mode 1)
 (blink-cursor-mode 0)
+(electric-pair-mode 1)
 
 (require 'telephone-line)
 (setq telephone-line-lhs
@@ -92,12 +93,10 @@
               (push '(">=" . "≥") prettify-symbols-alist)
 	      (push '("<=" . "≤") prettify-symbols-alist)
 	      (push '("!=" . "≠") prettify-symbols-alist)
-	      (push '("sqrt" . "√") prettify-symbols-alist)
 	      (push '("<<" . "«") prettify-symbols-alist)
 	      (push '(">>" . "»") prettify-symbols-alist)
 	      (push '("->" . "→") prettify-symbols-alist)
 	      (push '("<-" . "←") prettify-symbols-alist)))
-
 (global-prettify-symbols-mode 1)
 
 (setq special-display-function
