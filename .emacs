@@ -78,9 +78,7 @@
 	      (push '(">>" . "»") prettify-symbols-alist)
 	      (push '("->" . "→") prettify-symbols-alist)
 	      (push '("<-" . "←") prettify-symbols-alist)
-	      (push '("::" . "∷") prettify-symbols-alist)
-	      (push '("=" . "≡") prettify-symbols-alist)
-	      (push '("==" . "==") prettify-symbols-alist)))
+	      (push '("::" . "∷") prettify-symbols-alist)))
 (global-prettify-symbols-mode 1)
 
 (setq special-display-function
