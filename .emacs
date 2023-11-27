@@ -38,25 +38,6 @@
 (blink-cursor-mode 0)
 (electric-pair-mode 1)
 
-(require 'telephone-line)
-(setq telephone-line-lhs
-      '((nil    . (telephone-line-vc-segment))
-	(accent . (telephone-line-position-segment))
-	(nil    . ())))
-(setq telephone-line-rhs
-        '((nil    . ())))
-
-(setq telephone-line-primary-left-separator
-      telephone-line-identity-left)
-
-(setq telephone-line-primary-right-separator
-      telephone-line-halfsin-right)
-
-(setq telephone-line-secondary-right-separator
-      telephone-line-halfsin-right)
-
-(telephone-line-mode 1)
-
 (require 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 
@@ -97,7 +78,9 @@
 	      (push '(">>" . "»") prettify-symbols-alist)
 	      (push '("->" . "→") prettify-symbols-alist)
 	      (push '("<-" . "←") prettify-symbols-alist)
-	      (push '("::" . "∷") prettify-symbols-alist)))
+	      (push '("::" . "∷") prettify-symbols-alist)
+	      (push '("=" . "≡") prettify-symbols-alist)
+	      (push '("==" . "==") prettify-symbols-alist)))
 (global-prettify-symbols-mode 1)
 
 (setq special-display-function
