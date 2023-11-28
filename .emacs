@@ -24,8 +24,9 @@
  '(highlight-indent-guides-character 124)
  '(highlight-indent-guides-method 'character)
  '(inhibit-startup-screen t)
- '(package-selected-packages '(telephone-line haskell-mode org-modern gruvbox-theme))
  '(menu-bar-mode nil)
+ '(package-selected-packages
+   '(origami telephone-line haskell-mode org-modern gruvbox-theme))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -37,6 +38,7 @@
 (show-paren-mode 1)
 (blink-cursor-mode 0)
 (electric-pair-mode 1)
+(global-origami-mode)
 
 (require 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
@@ -79,7 +81,7 @@
 	      (push '("->" . "→") prettify-symbols-alist)
 	      (push '("<-" . "←") prettify-symbols-alist)
 	      (push '("::" . "∷") prettify-symbols-alist)))
-(global-prettify-symbols-mode 1)
+(global-prettify-symbols-mode +1)
 
 (setq special-display-function
       (lambda (buffer &optional args)
@@ -114,6 +116,7 @@
 (global-set-key (kbd "C-x m") 'compilation-function)
 (global-set-key (kbd "M-a") 'select-block)
 (global-set-key (kbd "C-x C-c") 'close-binding)
+(global-set-key (kbd "C-f") 'origami-toggle-node)
 
 (setq make-backup-files nil)
 
@@ -122,5 +125,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
 
