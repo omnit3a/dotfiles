@@ -22,8 +22,6 @@
 
 ;; Disable some GUI stuff
 (setq scroll-bar-mode nil)
-(setq menu-bar-mode nil)
-(setq tool-bar-mode nil)
 (setq tooltip-mode nil)
 
 ;; Load Theme
