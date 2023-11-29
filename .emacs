@@ -26,7 +26,7 @@
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(auto-complete origami telephone-line haskell-mode org-modern gruvbox-theme))
+   '(origami telephone-line haskell-mode org-modern gruvbox-theme))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -39,7 +39,6 @@
 (blink-cursor-mode 0)
 (electric-pair-mode 1)
 (global-origami-mode)
-(ac-config-default)
 
 (setq org-support-shift-select t)
 
