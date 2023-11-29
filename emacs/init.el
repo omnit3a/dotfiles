@@ -1,1 +1,1 @@
-(add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
+(require "~/.emacs.d/config.el")
