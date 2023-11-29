@@ -2,11 +2,11 @@
 (load-file "~/.emacs.d/column-enforce-mode.el")
 (load-file "~/.emacs.d/goto-line-preview.el")
 (load-file "~/.emacs.d/presley-mode.el")
-11;rgb:2828/2828/2828
+
 (require 'package)
 (add-to-list 'package-archives
-              '("melpa" . "https://melpa.org/packages/")
-              t)
+             '("melpa" . "https://melpa.org/packages/")
+             t)
 (package-initialize)
 
 (custom-set-variables
@@ -23,10 +23,9 @@
  '(fringe-mode 0 nil (fringe))
  '(highlight-indent-guides-character 124)
  '(highlight-indent-guides-method 'character)
- '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(origami telephone-line haskell-mode org-modern gruvbox-theme))
+   '(aggressive-indent origami telephone-line haskell-mode org-modern gruvbox-theme))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -39,6 +38,17 @@
 (blink-cursor-mode 0)
 (electric-pair-mode 1)
 (global-origami-mode)
+(global-aggressive-indent-mode 1)
+
+(with-eval-after-load "org"
+  (define-key org-mode-map (kbd "M-a") #'org-open-at-point))
+
+(defun my-after-init-hook ()
+  "Test."
+  (print command-line-args)
+  (when (= 1 (length command-line-args))
+    (setq initial-buffer-choice "~/.emacs.d/start.org")))
+(add-hook 'after-init-hook 'my-after-init-hook)
 
 (setq org-support-shift-select t)
 
