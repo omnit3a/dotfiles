@@ -28,8 +28,6 @@
 
 ;; Load Theme
 (load-theme 'gruvbox-dark-medium t)
-(set-face-attribute 'default nil :font "APL386 Tall" :height 160)
-
 
 ;; Cursor Related Stuff
 (setq shift-select-mode t)
@@ -87,7 +85,7 @@
 
 (setq special-display-function
       (lambda (buffer &optional args)
-	(switch-to-buffer-buffer)
+	(switch-to-buffer buffer)
 	(get-buffer-window buffer 0)))
 
 (defun close-binding (arg)
