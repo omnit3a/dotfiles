@@ -58,10 +58,6 @@
 (setq show-paren-mode t)
 (electric-pair-mode 1)
 
-;; Origami
-(setq global-origami-mode t)
-(global-set-key (kbd "C-f") 'origami-toggle-node)
-
 ;; Org-mode
 (with-eval-after-load "org"
   (define-key
