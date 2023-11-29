@@ -1,1 +1,2 @@
-(require "~/.emacs.d/config.el")
+(load "~/.emacs.d/config.el")
+
