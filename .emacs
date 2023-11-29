@@ -44,7 +44,6 @@
   (define-key org-mode-map (kbd "M-a") #'org-open-at-point))
 
 (defun my-after-init-hook ()
-  "Test."
   (print command-line-args)
   (when (= 1 (length command-line-args))
     (setq initial-buffer-choice "~/.emacs.d/start.org")))
@@ -84,15 +83,15 @@
       )
 
 (add-hook 'prog-mode-hook
-            (lambda ()
-              (push '(">=" . "≥") prettify-symbols-alist)
-	      (push '("<=" . "≤") prettify-symbols-alist)
-	      (push '("!=" . "≠") prettify-symbols-alist)
-	      (push '("<<" . "«") prettify-symbols-alist)
-	      (push '(">>" . "»") prettify-symbols-alist)
-	      (push '("->" . "→") prettify-symbols-alist)
-	      (push '("<-" . "←") prettify-symbols-alist)
-	      (push '("::" . "∷") prettify-symbols-alist)))
+          (lambda ()
+            (push '(">=" . "≥") prettify-symbols-alist)
+	    (push '("<=" . "≤") prettify-symbols-alist)
+	    (push '("!=" . "≠") prettify-symbols-alist)
+	    (push '("<<" . "«") prettify-symbols-alist)
+	    (push '(">>" . "»") prettify-symbols-alist)
+	    (push '("->" . "→") prettify-symbols-alist)
+	    (push '("<-" . "←") prettify-symbols-alist)
+	    (push '("::" . "∷") prettify-symbols-alist)))
 (global-prettify-symbols-mode +1)
 
 (setq special-display-function
@@ -106,9 +105,9 @@
   (interactive "p")
   (if (get-buffer "*compilation*")
       (kill-buffer "*compilation*")
-      (save-buffers-kill-emacs)
+    (save-buffers-kill-emacs)
     )
-    
+  
   )
 
 (defun goto-line-relative (arg)
@@ -116,7 +115,7 @@
   (setq line-goto (read-number "Jump to line: "))
   (if (< line-goto 0)
       (previous-line (* line-goto -1))
-      (next-line line-goto))
+    (next-line line-goto))
   )
 
 (setq c-default-style "linux")
