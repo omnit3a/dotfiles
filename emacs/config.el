@@ -23,9 +23,13 @@
 ;; Disable some GUI stuff
 (setq scroll-bar-mode nil)
 (setq tooltip-mode nil)
+(setq menu-bar-mode nil)
+(setq tool-bar-mode nil)
 
 ;; Load Theme
 (load-theme 'gruvbox-dark-medium t)
+(set-face-attribute 'default nil :font "APL386 Tall" :height 160)
+
 
 ;; Cursor Related Stuff
 (setq shift-select-mode t)

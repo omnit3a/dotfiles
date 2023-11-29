@@ -5,7 +5,6 @@
 [[~/dotfiles][dotfiles directory]]
 [[~/.config][.config directory]]
 [[~/dotfiles/.emacs][Emacs config]]
-[[~/dotfiles/emacs/start.org][Splash screen]]
 ** Code Directories
 [[/home/fostyr/Desktop/Code/C/][C directory]]
 [[~/Desktop/Code/Scheme/][Scheme directory]]
