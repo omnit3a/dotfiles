@@ -16,7 +16,6 @@
  'splash-screen-hook)
 
 ;; Load Packages
-(require 'origami)
 (require 'org-modern)
 (require 'goto-line-preview)
 (require 'haskell-mode)
