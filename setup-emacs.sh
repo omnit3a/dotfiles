@@ -1,4 +1,3 @@
 #!/bin/sh
 
-cp .emacs ~/.emacs 
-cp emacs/* ~/.emacs.d/ -r
+cp emacs/* ~/.emacs.d/
