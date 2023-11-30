@@ -63,6 +63,7 @@
     org-mode-map
     (kbd "M-a")
     #'org-open-at-point))
+(setq org-support-shift-select t)
 
 ;; Compilation Functions
 (defun compile-search (command)
