@@ -1,4 +1,4 @@
-;; Setup MELPA
+v;; Setup MELPA
 (require 'package)
 (add-to-list
  'package-archives
@@ -21,13 +21,14 @@
 (require 'haskell-mode)
 
 ;; Disable some GUI stuff
-(setq scroll-bar-mode nil)
-(setq tooltip-mode nil)
-(setq menu-bar-mode nil)
-(setq tool-bar-mode nil)
+(setq scroll-bar-mode -1)
+(setq menu-bar-mode -1)
+(setq tool-bar-mode -1)
+(fringe-mode 0)
 
 ;; Load Theme
 (load-theme 'gruvbox-dark-medium t)
+(default-text-scale-mode 1)
 
 ;; Cursor Related Stuff
 (setq shift-select-mode t)
@@ -64,6 +65,7 @@
     (kbd "M-a")
     #'org-open-at-point))
 (setq org-support-shift-select t)
+(setq org-hide-leading-starts t)
 
 ;; Compilation Functions
 (defun compile-search (command)
