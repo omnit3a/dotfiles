@@ -1,10 +1,16 @@
 #!/usr/bin/env fish
 
-function create_function -a func in
-    if test (count $argv) -ne 2
-	print_error "incorrect amount of parameters were passed"
+function verify_args -a expected found
+    if test $expected -eq $found
 	return 1
     end
+    print_error "incorrect number of parameters were passed"
+    return 0
+end
+
+function create_function -a func in
+    set valid verify_args 2 (count $argv)
+    if $valid; return 1; end
 
     funcsave -q $func
     if [ $in = "" ]
@@ -14,10 +20,8 @@ function create_function -a func in
 end
 
 function create_alias -a func in out
-    if test (count $argv) -ne 3
-	print_error "incorrect amount of parameters were passed"
-	return 1
-    end
+    set valid verify_args 3 (count $argv)
+    if $valid; return 1; end
     
     funcsave -q $func
     if [ $in = "" ]
@@ -30,10 +34,8 @@ function create_alias -a func in out
 end
 
 function print_status -a stat msg
-    if test (count $argv) -ne 2
-	print_error "incorrect amount of parameters were passed"
-	return 1
-    end
+    set valid verify_args 2 (count $argv)
+    if $valid; return 1; end
     
     switch $stat
 	# general use
@@ -218,11 +220,9 @@ function print_status -a stat msg
 end
 
 function print_warning -a msg
-    if test (count $argv) -ne 1
-	print_error "incorrect amount of parameters were passed"
-	return 1
-    end
-    
+    set valid verify_args 1 (count $argv)
+    if $valid; return 1; end
+
     printf "[%sWARNING%s]: %s\n" \
 	(set_color bryellow) \
 	(set_color normal) \
@@ -230,11 +230,6 @@ function print_warning -a msg
 end
 
 function print_error -a msg    
-    if test (count $argv) -ne 1
-	print_error "incorrect amount of parameters were passed"
-	return 1
-    end
-
     printf "[%sERROR%s]: %s\n" \
 	(set_color brred) \
 	(set_color normal) \
@@ -242,11 +237,9 @@ function print_error -a msg
 end
 
 function destroy_function -a func_name
-    if test (count $argv) -ne 1
-	print_error "incorrect amount of parameters were passed"
-	return 1
-    end
-    
+    set valid verify_args 1 (count $argv)
+    if $valid; return 1; end
+
     if [ $func_name = "" ]
 	print_error "no function name was specified"
 	return 1
@@ -261,15 +254,13 @@ function destroy_function -a func_name
     end
 
     if not test -e $filepath
-	print_status "rm" "successfully removed $func_name"
+	print_status "rem_func" "successfully removed $func_name"
     end
 end
 
 function confirm -a msg yes_no
-    if test (count $argv) -ne 2
-	print_error "incorrect amount of parameters were passed"
-	return 1
-    end
+    set valid verify_args 2 (count $argv)
+    if $valid; return 1; end
 
     switch $yes_no
 	case "yes"
@@ -316,6 +307,7 @@ function fish_prompt
 	(set_color brblue)
 end
 printf "%s> Fish Shell related setup%s\n" (set_color bryellow) (set_color normal)
+create_function verify_args "verify_args"
 create_function fish_prompt "fish_prompt"
 print_status "fish" "set fish shell prompt"
 create_function confirm "confirm"
@@ -361,11 +353,9 @@ if confirm "Using exa?" "yes"
 end
 
 function chper -a add_rem perm file
-    if test (count $argv) -ne 3
-	print_error "incorrect amount of parameters were passed"
-	return 1
-    end
-    
+    set valid verify_args 3 (count $argv)
+    if $valid; return 1; end
+
     if [ $add_rem = "add" ]
 	set change "+"
     else if [ $add_rem = "rem" ]
@@ -480,10 +470,8 @@ if confirm "Add alias for chmod?" "yes"
 end
 
 function fileinfo -a perm file
-    if test (count $argv) -ne 2
-	print_error "incorrect amount of parameters were passed"
-	return 1
-    end
+    set valid verify_args 2 (count $argv)
+    if $valid; return 1; end
 
     if [ $perm = "" ]
 	print_error "no file queries were specified"
@@ -577,7 +565,5 @@ if confirm "Add alias for retrieving file info?" "yes"
     create_alias fileinfo "stat" "fileinfo"
 end
 
-function compyle
-    argparse --name=compyle 'o/out' -- $argv
-    
+function ezgit -a command args
 end
