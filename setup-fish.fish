@@ -13,6 +13,7 @@ function create_function -a func in
     if $valid; return 1; end
 
     funcsave -q $func
+
     if [ $in = "" ]
 	return 0
     end
@@ -22,8 +23,9 @@ end
 function create_alias -a func in out
     set valid verify_args 3 (count $argv)
     if $valid; return 1; end
-    
+
     funcsave -q $func
+    
     if [ $in = "" ]
 	return 0
     end
@@ -244,18 +246,17 @@ function destroy_function -a func_name
 	print_error "no function name was specified"
 	return 1
     end
-    
-    set filepath (string join '' "/home/fostyr/.config/fish/functions/" $func_name ".fish")
-    if test -e $filepath
-	rm $filepath
+
+    if functions -q $func_name
+	functions -e "$func_name"
+	funcsave -q "$func_name"
+	print_status "rem_func" "successfully removed $func_name"
+	return 0
     else
 	print_error "$func_name does not exist or cannot be found"
 	return 1
     end
 
-    if not test -e $filepath
-	print_status "rem_func" "successfully removed $func_name"
-    end
 end
 
 function confirm -a msg yes_no
@@ -340,6 +341,33 @@ if confirm "Install fisher?" "yes"
 	    print_status "rm" "successfully removed fisher-install.log"
 	end
     end
+end
+
+function install_fisher_pkg -a name path
+    if not functions -q "fisher"
+	print_error "fisher is not installed"
+	return 1
+    end
+
+    if not functions -q $name
+	fisher install $path
+	if functions -q $name
+	    print_status "fish" "successfully installed $name"
+	else
+	    print_error "could not install $name"
+	    return 1
+	end
+    else
+	print_error "package $name is already installed"
+	return 1
+    end
+    if functions -q "source ~/dotfiles/setup-fish.fish"
+	source ~/dotfiles/setup-fish.fish
+    end
+end
+
+if confirm "Install fisher packages?" "yes"
+    install_fisher_pkg "reload" "enji-miyake/reload.fish"
 end
 echo ""
 
@@ -565,5 +593,4 @@ if confirm "Add alias for retrieving file info?" "yes"
     create_alias fileinfo "stat" "fileinfo"
 end
 
-function ezgit -a command args
-end
+reload
