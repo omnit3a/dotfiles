@@ -12,6 +12,17 @@ function create_function -a func in
     set valid verify_args 2 (count $argv)
     if $valid; return 1; end
 
+    set pathname (string join '' "/home/fostyr/.config/fish/functions/$func" ".fish") 
+    test -e $pathname
+    if test $status -eq 0
+	cat $pathname > "temp.txt"
+	if test -s "temp.txt"
+	    print_warning "\"$func\" already exists"
+	    rm "temp.txt"
+	end
+	return 1
+    end
+
     funcsave -q $func
 
     if [ $in = "" ]
@@ -24,6 +35,17 @@ function create_alias -a func in out
     set valid verify_args 3 (count $argv)
     if $valid; return 1; end
 
+    set pathname (string join '' "/home/fostyr/.config/fish/functions/$func" ".fish") 
+    test -e $pathname
+    if test $status -eq 0
+	cat $pathname > "temp.txt"
+	if test -s "temp.txt"
+	    print_warning "\"$func\" already exists"
+	    rm "temp.txt"
+	end
+	return 1
+    end
+        
     funcsave -q $func
     
     if [ $in = "" ]
@@ -242,19 +264,17 @@ function destroy_function -a func_name
     set valid verify_args 1 (count $argv)
     if $valid; return 1; end
 
-    if [ $func_name = "" ]
+    if [ "$func_name" = "" ]
 	print_error "no function name was specified"
 	return 1
     end
 
     if functions -q $func_name
-	functions -e "$func_name"
-	funcsave -q "$func_name"
+	functions --erase $func_name
+	funcsave -q $func_name
 	print_status "rem_func" "successfully removed $func_name"
-	return 0
     else
 	print_error "$func_name does not exist or cannot be found"
-	return 1
     end
 
 end
@@ -307,6 +327,7 @@ function fish_prompt
 	(set_color $fish_color_cwd) (basename $PWD)\
 	(set_color brblue)
 end
+
 printf "%s> Fish Shell related setup%s\n" (set_color bryellow) (set_color normal)
 create_function verify_args "verify_args"
 create_function fish_prompt "fish_prompt"
@@ -321,7 +342,7 @@ create_function destroy_function "destroy_function"
 
 function install_fisher
     if test -e /home/fostyr/.config/fish/functions/fisher.fish
-	print_error "fisher is already installed"
+	print_warning "fisher is already installed"
 	return 1
     end
     curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source \
@@ -358,7 +379,7 @@ function install_fisher_pkg -a name path
 	    return 1
 	end
     else
-	print_error "package $name is already installed"
+	print_warning "package $name is already installed"
 	return 1
     end
     if functions -q "source ~/dotfiles/setup-fish.fish"
