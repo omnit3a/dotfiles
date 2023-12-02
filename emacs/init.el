@@ -1,2 +1,2 @@
-(load "~/.emacs.d/config.el")
+(load-file "~/.emacs.d/config.el")
 
