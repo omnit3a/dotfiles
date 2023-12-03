@@ -2,26 +2,45 @@
 
 function verify_args -a expected found
     if test $expected -eq $found
-	return 1
+	return 0
     end
     print_error "incorrect number of parameters were passed"
+    return 1
+end
+
+function verify_func -a func func_type
+    set valid verify_args 2 (count $argv)
+    if not $valid; return 1; end
+
+    set pathname (string join '' "$HOME/.config/fish/functions/$func" ".fish") 
+    test -e $pathname
+    
+    if test $status -eq 0
+	cat $pathname > "temp.txt"
+	
+	if test -s "temp.txt"
+	    print_warning "$func_type \"$func\" already exists"
+	    rm "temp.txt"
+	    return 1
+	end
+
+	if test -e "temp.txt"
+	    rm "temp.txt"
+	    print_status "rm" "deleted temporary file"
+	end
+
+	return 1
+    end
+    
     return 0
 end
 
 function create_function -a func in
     set valid verify_args 2 (count $argv)
-    if $valid; return 1; end
-
-    set pathname (string join '' "/home/fostyr/.config/fish/functions/$func" ".fish") 
-    test -e $pathname
-    if test $status -eq 0
-	cat $pathname > "temp.txt"
-	if test -s "temp.txt"
-	    print_warning "\"$func\" already exists"
-	    rm "temp.txt"
-	end
-	return 1
-    end
+    if not $valid; return 1; end
+    
+    set valid verify_func $func "function"
+    if not $valid; return 1; end
 
     funcsave -q $func
 
@@ -33,18 +52,10 @@ end
 
 function create_alias -a func in out
     set valid verify_args 3 (count $argv)
-    if $valid; return 1; end
+    if not $valid; return 1; end
 
-    set pathname (string join '' "/home/fostyr/.config/fish/functions/$func" ".fish") 
-    test -e $pathname
-    if test $status -eq 0
-	cat $pathname > "temp.txt"
-	if test -s "temp.txt"
-	    print_warning "\"$func\" already exists"
-	    rm "temp.txt"
-	end
-	return 1
-    end
+    set valid verify_func $func "alias"
+    if not $valid; return 1; end
         
     funcsave -q $func
     
@@ -59,7 +70,7 @@ end
 
 function print_status -a stat msg
     set valid verify_args 2 (count $argv)
-    if $valid; return 1; end
+    if not $valid; return 1; end
     
     switch $stat
 	# general use
@@ -245,7 +256,7 @@ end
 
 function print_warning -a msg
     set valid verify_args 1 (count $argv)
-    if $valid; return 1; end
+    if not $valid; return 1; end
 
     printf "[%sWARNING%s]: %s\n" \
 	(set_color bryellow) \
@@ -262,7 +273,7 @@ end
 
 function destroy_function -a func_name
     set valid verify_args 1 (count $argv)
-    if $valid; return 1; end
+    if not $valid; return 1; end
 
     if [ "$func_name" = "" ]
 	print_error "no function name was specified"
@@ -281,7 +292,7 @@ end
 
 function confirm -a msg yes_no
     set valid verify_args 2 (count $argv)
-    if $valid; return 1; end
+    if not $valid; return 1; end
 
     switch $yes_no
 	case "yes"
@@ -339,15 +350,17 @@ create_function print_error "print_error"
 create_function create_function "create_function"
 create_function create_alias "create_alias"
 create_function destroy_function "destroy_function"
+echo ""
 
+printf "%s> Fisher setup%s\n" (set_color bryellow) (set_color normal)
 function install_fisher
-    if test -e /home/fostyr/.config/fish/functions/fisher.fish
+    if test -e $HOME/.config/fish/functions/fisher.fish
 	print_warning "fisher is already installed"
 	return 1
     end
     curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source \
 	&& fisher install jorgebucaran/fisher > fisher-install.log
-    if test -e /home/fostyr/.config/fish/functions/fisher.fish
+    if test -e "$HOME/.config/fish/functions/fisher.fish"
 	print_status "success" "fisher was installed successfully"
     end
 end
@@ -365,6 +378,9 @@ if confirm "Install fisher?" "yes"
 end
 
 function install_fisher_pkg -a name path
+    set valid verify_args 2 (count $argv)
+    if not $valid; return 1; end
+    
     if not functions -q "fisher"
 	print_error "fisher is not installed"
 	return 1
@@ -403,7 +419,7 @@ end
 
 function chper -a add_rem perm file
     set valid verify_args 3 (count $argv)
-    if $valid; return 1; end
+    if not $valid; return 1; end
 
     if [ $add_rem = "add" ]
 	set change "+"
@@ -520,7 +536,7 @@ end
 
 function fileinfo -a perm file
     set valid verify_args 2 (count $argv)
-    if $valid; return 1; end
+    if not $valid; return 1; end
 
     if [ $perm = "" ]
 	print_error "no file queries were specified"
