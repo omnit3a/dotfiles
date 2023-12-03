@@ -1,6 +1,0 @@
-i3 dependencies:
- - tilix
- - firefox
- - feh
- - xrandr
- - emacs
