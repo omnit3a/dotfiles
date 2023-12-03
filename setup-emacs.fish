@@ -10,7 +10,10 @@ if test -e "$HOME/.emacs.d/init.el"
     if confirm "Overwrite?" "yes"
 	cp "$HOME/dotfiles/emacs/init.el" "$HOME/.emacs.d/init.el"
 	print_status "cp" "overwrote emacs init file"
-    end 
+    end
+else
+    cp "$HOME/dotfiles/emacs/init.el" "$HOME/.emacs.d/init.el"
+    print_status "cp" "wrote emacs init file"
 end
 echo ""
 
@@ -21,7 +24,10 @@ if test -e "$HOME/.emacs.d/config.el"
     if confirm "Overwrite?" "yes"
 	cp "$HOME/dotfiles/emacs/config.el" "$HOME/.emacs.d/config.el"
 	print_status "cp" "overwrote emacs config file"
-    end 
+    end
+else
+    cp "$HOME/dotfiles/emacs/config.el" "$HOME/.emacs.d/config.el"
+    print_status "cp" "wrote emacs config file"
 end
 echo ""
 
@@ -32,6 +38,9 @@ if test -e "$HOME/.emacs.d/start.org"
     if confirm "Overwrite?" "yes"
 	cp "$HOME/dotfiles/emacs/start.org" "$HOME/.emacs.d/start.org"
 	print_status "cp" "overwrote emacs splash file file"
-    end 
+    end
+else
+    cp "$HOME/dotfiles/emacs/start.org" "$HOME/.emacs.d/start.org"
+    print_status "cp" "wrote emacs splash screen file"
 end
 echo ""

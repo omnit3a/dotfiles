@@ -10,7 +10,7 @@
   (print command-line-args)
   (when (= 1 (length command-line-args))
     (setq initial-buffer-choice
-	  "~/.emacs.d/start.org")))
+	  "$HOME/.emacs.d/start.org")))
 (add-hook
  'after-init-hook
  'splash-screen-hook)
