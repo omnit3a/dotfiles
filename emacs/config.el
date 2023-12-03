@@ -5,6 +5,8 @@
  '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
+
+
 ;; Splash Screen
 (defun splash-screen-hook ()
   (print command-line-args)
@@ -107,8 +109,6 @@
    (push '("!=" . "≠") prettify-symbols-alist)
    (push '("<<" . "«") prettify-symbols-alist)
    (push '(">>" . "»") prettify-symbols-alist)
-   (push '("->" . "→") prettify-symbols-alist)
-   (push '("<-" . "←") prettify-symbols-alist)
    (push '("::" . "∷") prettify-symbols-alist)))
 (global-prettify-symbols-mode +1)
 
