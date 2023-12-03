@@ -5,14 +5,12 @@
  '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
-
-
 ;; Splash Screen
 (defun splash-screen-hook ()
   (print command-line-args)
   (when (= 1 (length command-line-args))
     (setq initial-buffer-choice
-	  "$HOME/.emacs.d/start.org")))
+	  "/home/fostyr/.emacs.d/start.org")))
 (add-hook
  'after-init-hook
  'splash-screen-hook)
