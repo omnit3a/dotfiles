@@ -1,12 +1,26 @@
 #!/usr/bin/env fish
 
-test -e "$HOME/.config/i3/config"
-echo $status
+set deps tilix firefox feh xrandr
+verify_deps $deps
 
+printf "%s> Main i3 config file%s\n" (set_color bryellow) (set_color normal)
 if test -e "$HOME/.config/i3/config"
-    echo "test"
+    print_warning "i3 config file already exists"
+    
+    if confirm "Overwrite?" "yes"
+	cp "$HOME/dotfiles/i3/config" "$HOME/.config/i3/config"
+	print_status "cp" "overwrote i3 config file"
+    end 
 end
+echo ""
 
-#cp i3/* ~/.config/i3/
+printf "%s> i3status config file%s\n" (set_color bryellow) (set_color normal)
+if test -e "$HOME/.config/i3/i3status.conf"
+    print_warning "i3status config file already exists"
 
-#if i3/
+    if confirm "Overwrite?" "yes"
+	cp "$HOME/dotfiles/i3/i3status.conf" "$HOME/.config/i3/i3status.conf"
+	print_status "cp" "overwrote i3status config file"
+    end 
+end
+echo ""    

@@ -1,5 +1,47 @@
 #!/usr/bin/env fish
 
+function install_package -a package
+    if confirm "Install $package?" "def"
+	print_status "apt" "installing $package"
+	fish -c "sudo DEBIAN_FRONTEND=noninteractive apt-get install $package -qq < /dev/null > /dev/null"
+	
+	if not command -q $package
+	    print_error "failed to install $package"
+	    return 1
+	else
+	    print_status "apt" "successfully installed $package"
+	    return 0
+	end
+    end
+    return 1
+end
+
+function verify_package -a package
+    if command -q $package
+	return 0
+    else
+	install_package $package
+	return $status
+    end
+end
+
+function verify_deps
+    set missing ''
+    for d in $argv
+	verify_package $d
+	if test $status -ne 0
+	    set -a missing $d
+	end
+    end
+    if test (count $missing) -ne 0
+	for i in $missing[2 .. -1]
+	    print_error "depenency not met ($i)"
+	end
+	return 1
+    end
+    return 0
+end
+
 function verify_args -a expected found
     if test $expected -eq $found
 	return 0
@@ -8,38 +50,8 @@ function verify_args -a expected found
     return 1
 end
 
-function verify_func -a func func_type
-    set valid verify_args 2 (count $argv)
-    if not $valid; return 1; end
-
-    set pathname (string join '' "$HOME/.config/fish/functions/$func" ".fish") 
-    test -e $pathname
-    
-    if test $status -eq 0
-	cat $pathname > "temp.txt"
-	
-	if test -s "temp.txt"
-	    print_warning "$func_type \"$func\" already exists"
-	    rm "temp.txt"
-	    return 1
-	end
-
-	if test -e "temp.txt"
-	    rm "temp.txt"
-	    print_status "rm" "deleted temporary file"
-	end
-
-	return 1
-    end
-    
-    return 0
-end
-
 function create_function -a func in
     set valid verify_args 2 (count $argv)
-    if not $valid; return 1; end
-    
-    set valid verify_func $func "function"
     if not $valid; return 1; end
 
     funcsave -q $func
@@ -52,9 +64,6 @@ end
 
 function create_alias -a func in out
     set valid verify_args 3 (count $argv)
-    if not $valid; return 1; end
-
-    set valid verify_func $func "alias"
     if not $valid; return 1; end
         
     funcsave -q $func
@@ -350,6 +359,12 @@ create_function print_error "print_error"
 create_function create_function "create_function"
 create_function create_alias "create_alias"
 create_function destroy_function "destroy_function"
+echo ""
+
+printf "%s> Dependency management%s\n" (set_color bryellow) (set_color normal)
+create_function install_package "install_package"
+create_function verify_package "verify_package"
+create_function verify_deps "verify_deps"
 echo ""
 
 printf "%s> Fisher setup%s\n" (set_color bryellow) (set_color normal)

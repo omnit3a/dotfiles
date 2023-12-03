@@ -208,5 +208,3 @@ client.placeholder      #458588 #0c0c0c #458588 #000000   #458588
 exec_always --no-startup-id feh --bg-scale /home/fostyr/Pictures/wallpapers/monterey.jpg
 # exec xrandr --output LVDS-1 --primary --mode 1440x900 --output VGA-1 --off
 exec_always xrandr --output VGA-1 --primary --mode 1024x768
-
-bindsym $mod+z exec tilix -e emacs
