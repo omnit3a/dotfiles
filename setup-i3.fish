@@ -45,3 +45,4 @@ else
     print_status "cp" "wrote xrandr setup file"
 end
 echo ""
+

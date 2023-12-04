@@ -9,7 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-exec fish xrandr.fish
+exec_always fish $HOME/.config/i3/xrandr.fish
 
 default_border pixel 3
 
