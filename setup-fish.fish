@@ -169,7 +169,10 @@ function print_status -a stat msg
 	case "cd"
 	    set info "CHDIR"
 	    set color brmagenta
-
+	case "xrandr"
+	    set info "XRANDR"
+	    set color brmagenta
+	    
         # shell related
 	case "clear"
 	    set info "SHELL:CLEAR"

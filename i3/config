@@ -9,6 +9,8 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+exec fish xrandr.fish
+
 default_border pixel 3
 
 set $mod Mod1
@@ -185,7 +187,3 @@ client.urgent           #ebdbb2 #282828 #ebdbb2 #282828   #ebdbb2
 client.placeholder      #ebdbb2 #282828 #ebdbb2 #282828   #ebdbb2
 
 client.background 	#282828
-
-
-# exec xrandr --output LVDS-1 --primary --mode 1440x900 --output VGA-1 --off
-exec_always xrandr --output VGA-1 --primary --mode 1024x768

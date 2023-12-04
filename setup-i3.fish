@@ -30,3 +30,18 @@ else
     print_status "cp" "wrote i3status config file"
 end
 echo ""    
+
+
+printf "%s> xrandr setup file file%s\n" (set_color bryellow) (set_color normal)
+if test -e "$HOME/.config/i3/xrandr.fish"
+    print_warning "xrandr setup file already exists"
+    
+    if confirm "Overwrite?" "yes"
+	cp "$HOME/dotfiles/i3/xrandr.fish" "$HOME/.config/i3/xrandr.fish"
+	print_status "cp" "overwrote xrandr setup file"
+    end
+else
+    cp "$HOME/dotfiles/i3/xrandr.fish" "$HOME/.config/i3/xrandr.fish"
+    print_status "cp" "wrote xrandr setup file"
+end
+echo ""
