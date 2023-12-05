@@ -261,7 +261,15 @@ function print_status -a stat msg
 	case "git_diff"
 	    set info "GIT:DIFF"
 	    set color brgreen
-	    
+
+	# window management related
+	case "i3"
+	    set info "I3WM"
+	    set color magenta
+	case "xmonad"
+	    set info "XMONAD"
+	    set color magenta
+	   
     end
     printf "[%s$info%s]: %s\n" (set_color $color) (set_color normal) $msg
 end
