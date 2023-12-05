@@ -34,6 +34,7 @@ function compile_dwm
 
     if test -e $HOME/.suckless/dwm
 	cd $HOME/.suckless/dwm
+	
 	print_status "info" "looking for config file"
 
 	# copy config file
