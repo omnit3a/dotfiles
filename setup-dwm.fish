@@ -30,22 +30,28 @@ function clone_dwm_files
 end
 
 function compile_dwm
+    set prev_dir (pwd)
+
     if test -e $HOME/.suckless/dwm
 	cd $HOME/.suckless/dwm
 	print_status "info" "looking for config file"
+
+	# copy config file
 	if test -e $HOME/dotfiles/dwm/config.h
-	    rm config.h
 	    cp $HOME/dotfiles/dwm/config.h .
-	    print_status "cp" "copied dwm config file"
+	    print_status "cp" "copied config.h file"
 	else
-	    print_error "no config file was found"
+	    print_warning "no config file was found"
 	end
+	
 	print_status "make" "compiling dwm"
 	make
 	sudo make install
     else
 	print_error "could not find $HOME/.suckless/dwm"
     end
+
+    cd $prev_dir
 end
 
 printf "%s> DWM source code%s\n" (set_color bryellow) (set_color normal)
