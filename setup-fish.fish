@@ -266,8 +266,8 @@ function print_status -a stat msg
 	case "i3"
 	    set info "I3WM"
 	    set color magenta
-	case "xmonad"
-	    set info "XMONAD"
+	case "dwm"
+	    set info "DWM"
 	    set color magenta
 	   
     end
