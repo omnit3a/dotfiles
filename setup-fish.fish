@@ -354,9 +354,15 @@ function confirm -a msg yes_no
 end
 
 function fish_prompt
+    if test $status -eq 0
+	set prompt_color brcyan
+    else
+	set prompt_color brred
+    end
+
     printf "%s%s %s%% " \
-	(set_color $fish_color_cwd) (basename $PWD)\
-	(set_color brblue)
+	(set_color $fish_color_cwd) (basename $PWD) \
+	(set_color $prompt_color)
 end
 
 printf "%s> Fish Shell related setup%s\n" (set_color bryellow) (set_color normal)
