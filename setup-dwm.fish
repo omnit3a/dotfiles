@@ -17,7 +17,7 @@ function clone_dwm_files
     if test -e $HOME/.suckless
 	cd $HOME/.suckless
 	print_status "cd" "entered $HOME/.suckless"
-	if not test -e dwm
+	if not test -e dwm/
 	    git clone https://git.suckless.org/dwm
 	    if test $status -eq 0
 		print_status "git_clone" "successfully clone dwm"
@@ -32,6 +32,14 @@ end
 function compile_dwm
     if test -e $HOME/.suckless/dwm
 	cd $HOME/.suckless/dwm
+	print_status "info" "looking for config file"
+	if test -e $HOME/dotfiles/dwm/config.h
+	    rm config.h
+	    cp $HOME/dotfiles/dwm/config.h .
+	    print_status "cp" "copied dwm config file"
+	else
+	    print_error "no config file was found"
+	end
 	print_status "make" "compiling dwm"
 	make
 	sudo make install
