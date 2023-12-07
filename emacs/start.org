@@ -4,7 +4,7 @@
 ** Config Files
 [[~/dotfiles][dotfiles directory]]
 [[~/.config][.config directory]]
-[[~/dotfiles/.emacs][Emacs config]]
+[[~/dotfiles/emacs/config.el][Emacs config file]]
 ** Code Directories
 [[/home/fostyr/Desktop/Code/C/][C directory]]
 [[~/Desktop/Code/Scheme/][Scheme directory]]

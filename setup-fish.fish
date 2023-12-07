@@ -26,7 +26,7 @@ function verify_package -a package
 end
 
 function verify_deps
-    set missing ''
+    #set missing ''
     for d in $argv
 	verify_package $d
 	if test $status -ne 0
