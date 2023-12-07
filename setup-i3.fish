@@ -32,7 +32,7 @@ end
 echo ""    
 
 
-printf "%s> xrandr setup file file%s\n" (set_color bryellow) (set_color normal)
+printf "%s> xrandr setup file%s\n" (set_color bryellow) (set_color normal)
 if test -e "$HOME/.config/i3/xrandr.fish"
     print_warning "xrandr setup file already exists"
     
@@ -46,3 +46,16 @@ else
 end
 echo ""
 
+printf "%s> i3 exit script%s\n" (set_color bryellow) (set_color normal)
+if test -e "$HOME/.config/i3/exit-i3.fish"
+    print_warning "i3 exit script already exists"
+    
+    if confirm "Overwrite?" "yes"
+	cp "$HOME/dotfiles/i3/exit-i3.fish" "$HOME/.config/i3/exit-i3.fish"
+	print_status "cp" "overwrote i3 exit script"
+    end
+else
+    cp "$HOME/dotfiles/i3/exit-i3.fish" "$HOME/.config/i3/exit-i3.fish"
+    print_status "cp" "wrote i3 exit script"
+end
+echo ""

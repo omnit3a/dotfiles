@@ -1,8 +1,10 @@
 #!/usr/bin/env fish
 
-set vga (xrandr -q | grep "VGA-1")
-if string match -r "VGA-1 connected" $vga
-    xrandr --output VGA-1 --mode 1024x768
+set vga (xrandr -q | grep "VGA")
+if string match -r "VGA1 connected" $vga
+    xrandr --output LVDS1 --off
+    xrandr --output VGA1 --auto --primary
 else
-    xrandr --output LVDS-1 --auto
+    xrandr --output VGA1 --off
+    xrandr --output LVDS1 --auto --primary
 end
