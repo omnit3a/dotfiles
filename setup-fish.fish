@@ -662,4 +662,32 @@ if confirm "Add alias for retrieving file info?" "yes"
     create_alias fileinfo "stat" "fileinfo"
 end
 
-reload
+function aur_install 
+    set valid verify_args 1 (count $argv)
+    if not $valid; return 1; end
+
+    set repo $argv[1]
+    git clone $repo &> /dev/null
+    set repo_path (path basename $repo)
+    set repo_path (string replace ".git" "" $repo_path)
+
+    if not test -e $repo_path
+	print_error "could not clone $repo"
+	return 1
+    end
+    print_status "git_clone" "successfully cloned $repo"
+
+    print_status "cd" "entered $repo_path"
+    cd $repo_path
+    makepkg &> /dev/null
+    set file (/sbin/ls -1 | grep "$repo_path" | grep ".zst")
+    
+    sudo pacman -U $file
+    print_status "info" "installed AUR package $repo_path"
+    cd ..
+    print_status "cd" "left $repo_path"
+end
+
+if confirm "Add alias for installation of AUR packages?" "yes"
+    create_alias aur_install "aur" "aur_install"
+end
