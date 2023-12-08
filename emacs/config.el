@@ -10,7 +10,7 @@
   (print command-line-args)
   (when (= 1 (length command-line-args))
     (setq initial-buffer-choice
-	  "/home/fostyr/.emacs.d/start.org")))
+	  "~/.emacs.d/start.org")))
 (add-hook
  'after-init-hook
  'splash-screen-hook)
@@ -112,10 +112,17 @@
 ;; C Programming Stuff
 (setq c-default-style "linux")
 
+;; Exit emacs
+(desktop-save-mode t)
+(defun exit-emacs-func (arg)
+  (interactive "p")
+  (desktop-save "~/.emacs.d/")
+  (delete-frame))
+
 ;; Keybindings
 (global-set-key (kbd "C-y") 'kill-ring-save)
 (global-set-key (kbd "C-p") 'yank)
-(global-set-key (kbd "C-x C-c") 'delete-frame)
+(global-set-key (kbd "C-x C-c") 'exit-emacs-func)
 
 ;; Misc Config
 (setq make-backup-files nil)
