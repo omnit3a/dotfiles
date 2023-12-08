@@ -247,6 +247,7 @@ function install_fisher_pkg -a name path
 	source ~/dotfiles/setup-fish.fish
     end
 end
+echo
 
 function ls -a dir
     exa --long --no-user --no-permissions --no-time --binary --header --group-directories-first $dir
@@ -255,123 +256,6 @@ end
 printf "%s> Alias creation%s\n" (set_color bryellow) (set_color normal)
 if confirm "Using exa?" "yes"
     create_alias ls "exa" "ls"
-end
-
-function chper -a add_rem perm file
-    set valid verify_args 3 (count $argv)
-    if not $valid; return 1; end
-
-    if [ $add_rem = "add" ]
-	set change "+"
-    else if [ $add_rem = "rem" ]
-	set change "-"
-    else
-	print_error "specified permission qualifier is not recognized"
-	return 1
-    end
-    
-    if [ $perm = "" ]
-	print_error "specified permission is not recognized"
-	return 1
-    end
-
-    switch $perm
-	case "exec"
-	    if [ $change = "+" ]
-		if test -x $file
-		    print_error "file is already marked as executable"
-		    return 1
-		end
-	    else
-		if not test -x $file
-		    print_error "file is already marked as non-executable"
-		    return 1
-		end
-	    end
-	    set perm_char "x"
-	case "write"
-	    if [ $change = "+" ]
-		if test -w $file
-		    print_error "file is already marked as writable"
-		    return 1
-		end
-	    else
-		if not test -w $file
-		    print_error "file is already marked as non-writable"
-		    return 1
-		end
-	    end
-	    set perm_char "w"
-	case "read"
-	    if [ $change = "+" ]
-		if test -r $file
-		    print_error "file is already marked as readable"
-		    return 1
-		end
-	    else
-		if not test -r $file
-		    print_error "file is already marked as non-readable"
-		    return 1
-		end
-	    end
-	    set perm_char "r"
-	case "*"
-	    print_error "specified permission is not recognized"
-	    return 1
-    end
-    
-    chmod (string join '' $change $perm_char) $file
-    
-    if [ $change = "+" ]
-	set desc "is now"
-    else if [ $change = "-" ]
-	set desc "is no longer"
-    end
-    
-    switch $perm
-	case "exec"
-	    if [ $change = "+" ]
-		if test -x $file
-		    print_status "permissions" "files" "file is now executable"
-		    return 0
-		end
-	    else
-		if not test -x $file
-		    print_status "permissions" "files" "file is no longer executable"
-		    return 0
-		end
-	    end
-	case "write"
-	    if [ $change = "+" ]
-		if test -w $file
-		    print_status "permissions" "files" "file now writable"
-		    return 0
-		end
-	    else
-		if not test -w $file
-		    print_status "permissions" "files" "file no longer writable"
-		    return 0
-		end
-	    end
-	case "read"
-	    if [ $change = "+" ]
-		if test -r $file
-		    print_status "permissions" "files" "file now readable"
-		    return 0
-		end
-	    else
-		if not test -r $file
-		    print_status "permissions" "files" "file no longer readable"
-		    return 0
-		end
-	    end
-    end
-    print_error "no permissions were able to be modified"
-    return 1
-end
-
-if confirm "Add alias for chmod?" "yes"
-    create_alias chper "chmod" "chper"
 end
 
 function is_emacs_running
@@ -422,7 +306,7 @@ if confirm "Add alias for starting emacsclient" "yes"
     create_alias start_emacs "emacs_server" "start_emacs"
     create_alias emacs "emacsclient" "emacs"
 end
-echo ""
+echo
 
 cp $HOME/dotfiles/fish/* $HOME/.config/fish/
 print_status "copy" "files" "copy fish config files"
