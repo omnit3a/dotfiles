@@ -176,7 +176,7 @@ function run_bg_func
     set valid verify_args 1 (count $argv)
     if not $valid; return 1; end
 
-    $HOME/dotfiles/fish/run_c $argv[1] &
+    $HOME/.config/fish/run_c $argv[1] &
     return $status
 end
 

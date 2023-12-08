@@ -10,6 +10,8 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 exec_always fish $HOME/.config/i3/xrandr.fish
+exec_always pkill -f "fish -c processes_update"
+exec_always fish -c $HOME/.config/i3/processes.fish
 
 default_border pixel 3
 
@@ -176,6 +178,7 @@ bar {
 	position top
 	colors {
 	       background #282828
+	       separator #282828
 	}	
 }
 
