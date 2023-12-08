@@ -49,7 +49,8 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec tilix
+bindsym $mod+w exec tilix -e "fish -c \"emacs\""
+bindsym $mod+Return exec tilix -e "fish"
 bindsym $mod+n exec firefox
 
 # kill focused window
