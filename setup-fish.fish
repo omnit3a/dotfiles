@@ -374,21 +374,28 @@ if confirm "Add alias for chmod?" "yes"
     create_alias chper "chmod" "chper"
 end
 
+function is_emacs_running
+    emacsclient -a false -e '0' &> /dev/null
+    return $status
+end
+
+create_function is_emacs_running "is_emacs_running"
+
 function start_emacs
-    set emacs_name "emacs --daemon"
-    ps -ef | grep -q "\b$emacs_name\b"
-    if test $status -ne 0
-	/sbin/emacs --daemon
-	ps -ef | grep -q "\b$emacs_name\b"
-	if test $status -eq 0
-	    print_status "emacs:server" \
-		"common" \
-		"created emacs server successfully"
-	end
+    if not is_emacs_running
+	/sbin/emacs --daemon &> /dev/null
+    else
+	print_error "emacs is already running"
+	return 1
     end
 
-    if test $status -ne 0
-	print_error "could not start emacs server"
+    if is_emacs_running
+	print_status "emacs:server" \
+	    "common" \
+	    "successfully started emacs server"
+	return 0
+    else
+	print_error "something went wrong when starting emacs"
 	return 1
     end
 end
@@ -398,6 +405,9 @@ function emacs_handler --on-event emacs_done
 end
 
 function emacs
+    if not is_emacs_running
+	start_emacs
+    end
     print_status "emacs:server" \
 	"common" \
 	"attempting to connect to emacs server"
