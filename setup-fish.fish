@@ -163,9 +163,6 @@ function fish_prompt
 	set prompt_color brcyan
     else
 	set prompt_color brred
-	if command -q $prev_cmd
-	    print_error "$prev_cmd failed for some reason"
-	end
     end
 
     set_color $fish_color_cwd

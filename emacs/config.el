@@ -66,8 +66,8 @@
 
 ;; Exit emacs
 (desktop-save-mode t)
-(defun exit-emacs-func (arg)
-  (interactive "p")
+(defun exit-emacs-func ()
+  (interactive)
   (desktop-save "~/.emacs.d/")
   (suspend-frame))
 
