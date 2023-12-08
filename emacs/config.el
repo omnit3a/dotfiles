@@ -18,7 +18,6 @@
 ;; Load Packages
 (require 'org-modern)
 (require 'goto-line-preview)
-(require 'haskell-mode)
 
 ;; Disable some GUI stuff
 (setq scroll-bar-mode -1)
@@ -116,8 +115,7 @@
 ;; Keybindings
 (global-set-key (kbd "C-y") 'kill-ring-save)
 (global-set-key (kbd "C-p") 'yank)
-
-
+(global-set-key (kbd "C-x C-c") 'delete-fram)
 
 ;; Misc Config
 (setq make-backup-files nil)
