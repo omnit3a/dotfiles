@@ -79,14 +79,14 @@ function print_warning -a msg
     set valid verify_args 1 (count $argv)
     if not $valid; return 1; end
 
-    printf "[%sWARNING%s]: %s\n" \
+    printf "[%swarning%s]: %s\n" \
 	(set_color bryellow) \
 	(set_color normal) \
 	$msg
 end
 
 function print_error -a msg    
-    printf "[%sERROR%s]: %s\n" \
+    printf "[%serror%s]: %s\n" \
 	(set_color brred) \
 	(set_color normal) \
 	$msg
@@ -405,7 +405,6 @@ end
 
 function emacs_handler --on-event emacs_done
     run_bg_func "fish -c start_emacs &> /dev/null"
-    commandline (commandline --cut-at-cursor)
 end
 
 function emacs
@@ -423,5 +422,7 @@ if confirm "Add alias for starting emacsclient" "yes"
     create_alias start_emacs "emacs_server" "start_emacs"
     create_alias emacs "emacsclient" "emacs"
 end
+echo ""
 
 cp $HOME/dotfiles/fish/* $HOME/.config/fish/
+print_status "copy" "files" "copy fish config files"
