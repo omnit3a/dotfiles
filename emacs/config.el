@@ -115,7 +115,7 @@
 ;; Keybindings
 (global-set-key (kbd "C-y") 'kill-ring-save)
 (global-set-key (kbd "C-p") 'yank)
-(global-set-key (kbd "C-x C-c") 'delete-fram)
+(global-set-key (kbd "C-x C-c") 'delete-frame)
 
 ;; Misc Config
 (setq make-backup-files nil)
