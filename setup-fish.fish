@@ -175,6 +175,14 @@ function fish_prompt
     echo -n "% "
 end
 
+function run_bg_func
+    set valid verify_args 1 (count $argv)
+    if not $valid; return 1; end
+
+    $HOME/dotfiles/fish/run_c $argv[1] &
+    return $status
+end
+
 printf "%s> Fish Shell related setup%s\n" (set_color bryellow) (set_color normal)
 create_function verify_args "verify_args"
 create_function fish_prompt "fish_prompt"
@@ -186,6 +194,7 @@ create_function print_error "print_error"
 create_function create_function "create_function"
 create_function create_alias "create_alias"
 create_function destroy_function "destroy_function"
+create_function run_bg_func "run_bg_func"
 echo ""
 
 printf "%s> Fisher setup%s\n" (set_color bryellow) (set_color normal)
@@ -369,7 +378,7 @@ function start_emacs
     set emacs_name "emacs --daemon"
     ps -ef | grep -q "\b$emacs_name\b"
     if test $status -ne 0
-	/sbin/emacs --daemon &> /dev/null
+	/sbin/emacs --daemon
 	ps -ef | grep -q "\b$emacs_name\b"
 	if test $status -eq 0
 	    print_status "emacs:server" \
@@ -383,16 +392,6 @@ function start_emacs
 	return 1
     end
 end
-
-function run_bg_func
-    set valid verify_args 1 (count $argv)
-    if not $valid; return 1; end
-
-    $HOME/dotfiles/fish/run_c $argv[1] &
-    return $status
-end
-
-create_function run_bg_func "run_bg_func"
 
 function emacs_handler --on-event emacs_done
     run_bg_func "fish -c start_emacs &> /dev/null"
