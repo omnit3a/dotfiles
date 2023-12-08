@@ -167,9 +167,13 @@ function fish_prompt
 
     set_color $fish_color_cwd
     set dir_name (basename $PWD)
-    echo -n "$dir_name "
+    echo -n "$dir_name"
+    if [ fish_git_prompt != "" ]
+	set_color bryellow
+	fish_git_prompt
+    end
     set_color $prompt_color
-    echo -n "% "
+    echo -n " % "
 end
 
 function run_bg_func
