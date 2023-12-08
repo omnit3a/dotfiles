@@ -117,7 +117,7 @@
 (defun exit-emacs-func (arg)
   (interactive "p")
   (desktop-save "~/.emacs.d/")
-  (delete-frame))
+  (suspend-frame))
 
 ;; Keybindings
 (global-set-key (kbd "C-y") 'kill-ring-save)
