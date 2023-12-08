@@ -382,6 +382,9 @@ end
 create_function is_emacs_running "is_emacs_running"
 
 function start_emacs
+    print_status "emacs:server" \
+	"common" \
+	"attempting to start emacs server"
     if not is_emacs_running
 	/sbin/emacs --daemon &> /dev/null
     else
@@ -402,6 +405,7 @@ end
 
 function emacs_handler --on-event emacs_done
     run_bg_func "fish -c start_emacs &> /dev/null"
+    commandline (commandline --cut-at-cursor)
 end
 
 function emacs
