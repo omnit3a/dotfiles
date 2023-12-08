@@ -1,8 +1,5 @@
 #!/usr/bin/env fish
 
-set deps rofi
-verify_deps $deps
-
 printf "%s> Rofi config file%s\n" (set_color bryellow) (set_color normal)
 if test -e "$HOME/.config/rofi/config.rasi"
     print_warning "rofi config file already exists"

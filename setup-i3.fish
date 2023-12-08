@@ -1,8 +1,5 @@
 #!/usr/bin/env fish
 
-set deps tilix firefox feh xrandr fish
-verify_deps $deps
-
 printf "%s> Main i3 config file%s\n" (set_color bryellow) (set_color normal)
 if test -e "$HOME/.config/i3/config"
     print_warning "i3 config file already exists"

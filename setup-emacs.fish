@@ -1,8 +1,5 @@
 #!/usr/bin/env fish
 
-set deps emacs-nox
-verify_deps $deps
-
 printf "%s> Init file%s\n" (set_color bryellow) (set_color normal)
 if test -e "$HOME/.emacs.d/init.el"
     print_warning "emacs init file already exists"

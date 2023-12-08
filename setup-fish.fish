@@ -1,47 +1,5 @@
 #!/usr/bin/env fish
 
-function install_package -a package
-    if confirm "Install $package?" "def"
-	print_status "apt" "installing $package"
-	fish -c "sudo DEBIAN_FRONTEND=noninteractive apt-get install $package -qq < /dev/null > /dev/null"
-	
-	if not command -q $package
-	    print_error "failed to install $package"
-	    return 1
-	else
-	    print_status "apt" "successfully installed $package"
-	    return 0
-	end
-    end
-    return 1
-end
-
-function verify_package -a package
-    if command -q $package
-	return 0
-    else
-	install_package $package
-	return $status
-    end
-end
-
-function verify_deps
-    #set missing ''
-    for d in $argv
-	verify_package $d
-	if test $status -ne 0
-	    set -a missing $d
-	end
-    end
-    if test (count $missing) -ne 0
-	for i in $missing[2 .. -1]
-	    print_error "depenency not met ($i)"
-	end
-	return 1
-    end
-    return 0
-end
-
 function verify_args -a expected found
     if test $expected -eq $found
 	return 0
@@ -59,7 +17,7 @@ function create_function -a func in
     if [ $in = "" ]
 	return 0
     end
-    print_status "new_func" "created function \"$in\""
+    print_status "function:new" "functions" "created function \"$in\""
 end
 
 function create_alias -a func in out
@@ -74,204 +32,47 @@ function create_alias -a func in out
     if [ $out = "" ]
 	return 0
     end
-    print_status "new_alias" "created alias for \"$in\" as \"$out\""
+    print_status "alias:new" "functions" "created alias for \"$in\" as \"$out\""
 end
 
-function print_status -a stat msg
-    set valid verify_args 2 (count $argv)
+function print_status -a stat stat_type msg
+    set valid verify_args 3 (count $argv)
     if not $valid; return 1; end
-    
-    switch $stat
-	# general use
-	case "info"
-	    set info "INFO"
-	    set color brgreen
-	case "exec"
-	    set info "RUN"
-	    set color brgreen
-	case "success"
-	    set info "SUCCESS"
-	    set color brgreen
-	case "confirm"
-	    set info "?"
-	    set color brgreen
-	    
-        # linux related
-	case "apt"
-	    set info "APT"
+
+    switch $stat_type
+	case "general"
+	    set color brgreen	    
+	case "linux"
 	    set color red
-	case "sudo"
-	    set info "SUDO"
-	    set color red
-	case "systemd"
-	    set info "INIT"
-	    set color red
-	case "dd"
-	    set info "DISKS:WRITE"
-	    set color red
-	case "lsblk"
-	    set info "DISKS:READ"
-	    set color red
-	case "man"
-	    set info "MANUAL"
-	    set color red
-	    
-	# file manipulation related
-	case "dir"
-	    set info "MKDIR"
-	    set color brmagenta
-	case "touch"
-	    set info "TOUCH"
-	    set color brmagenta
-	case "rm"
-	    set info "REMOVE"
-	    set color brmagenta
-	case "chmod"
-	    set info "PERMISSIONS"
-	    set color brmagenta
-	case "cp"
-	    set info "COPY"
-	    set color brmagenta
-	case "mv"
-	    set info "MOVE"
-	    set color brmagenta
-	case "rename"
-	    set info "RENAME"
-	    set color brmagenta
-	    
-	# function related
-	case "new_func"
-	    set info "FUNCTION:NEW"
+	case "files"
+	    set color brmagenta	    
+	case "functions"
 	    set color brblue
-	case "rem_func"
-	    set info "FUNCTION:REMOVE"
-	    set color brblue
-	case "new_alias"
-	    set info "ALIAS:NEW"
-	    set color brblue
-
-	# common programs
-	case "cat"
-	    set info "CAT"
+	case "common"
 	    set color brmagenta
-	case "echo"
-	    set info "ECHO"
-	    set color brmagenta
-	case "export"
-	    set info "EXPORT"
-	    set color brmagenta
-	case "ls"
-	    set info "LIST"
-	    set color brmagenta
-	case "grep"
-	    set info "GREP"
-	    set color brmagenta
-	case "cd"
-	    set info "CHDIR"
-	    set color brmagenta
-	case "xrandr"
-	    set info "XRANDR"
-	    set color brmagenta
-	    
-        # shell related
-	case "clear"
-	    set info "SHELL:CLEAR"
+	case "shell"
 	    set color blue
-	case "sh"
-	    set info "SHELL:SH"
-	    set color blue
-	case "bash"
-	    set info "SHELL:BASH"
-	    set color blue
-	case "fish"
-	    set info "SHELL:FISH"
-	    set color blue
-	    
-	# compilation related
-	case "cc"
-	    set info "COMPILE:C"
+	case "compile"
 	    set color brcyan
-	case "cpp"
-	    set info "COMPILE:C++"
-	    set color brcyan
-	case "ghc"
-	    set info "COMPILE:HASKELL"
-	    set color brcyan
-	case "lisp"
-	    set info "EVAL:LISP"
-	    set color brcyan	    
-	case "scheme"
-	    set info "EVAL:SCHEME"
-	    set color brcyan
-
-	# binutils related
-	case "ld"
-	    set info "LINK"
+	case "binutils"
 	    set color bryellow
-	case "ar"
-	    set info "ARCHIVE"
-	    set color bryellow	    
-	case "as"
-	    set info "ASSEMBLE"
-	    set color bryellow
-	case "make"
-	    set info "MAKE"
-	    set color bryellow
-
-	# git related
-	case "git_clone"
-	    set info "GIT:CLONE"
+	case "git"
 	    set color brgreen
-	case "git_add"
-	    set info "GIT:ADD"
-	    set color brgreen
-	case "git_rm"
-	    set info "GIT:REMOVE"
-	    set color br_green
-	case "git_commit"
-	    set info "GIT:COMMIT"
-	    set color brgreen
-	case "git_push"
-	    set info "GIT:PUSH"
-	    set color brgreen
-	case "git_merge"
-	    set info "GIT:MERGE"
-	    set color brgreen
-	case "git_checkout"
-	    set info "GIT:LOAD"
-	    set color brgreen
-	case "git_branch"
-	    set info "GIT:BRANCH"
-	    set color brgreen
-	case "git_merge"
-	    set info "GIT:MERGE"
-	    set color brgreen
-	case "git_pull"
-	    set info "GIT:PULL"
-	    set color brgreen
-	case "git_rebase"
-	    set info "GIT:REBASE"
-	    set color brgreen
-	case "git_status"
-	    set info "GIT:STATUS"
-	    set color brgreen
-	case "git_switch"
-	    set info "GIT:SWITCH"
-	    set color brgreen
-	case "git_diff"
-	    set info "GIT:DIFF"
-	    set color brgreen
-
-	# window management related
-	case "i3"
-	    set info "I3WM"
-	    set color magenta
-	case "dwm"
-	    set info "DWM"
-	    set color magenta
-	   
+	case "windows"
+	    set color magenta	   
     end
-    printf "[%s$info%s]: %s\n" (set_color $color) (set_color normal) $msg
+
+    set colors (set_color -c)
+    echo $colors | grep -q $stat_type
+    if test $status -eq 0
+	set color $stat_type
+    end
+
+    printf "[%s%s%s]: %s\n" \
+	(set_color $color) \
+	$stat \
+	(set_color normal) \
+	$msg
 end
 
 function print_warning -a msg
@@ -303,7 +104,7 @@ function destroy_function -a func_name
     if functions -q $func_name
 	functions --erase $func_name
 	funcsave -q $func_name
-	print_status "rem_func" "successfully removed $func_name"
+	print_status "function:remove" "functions" "successfully removed $func_name"
     else
 	print_error "$func_name does not exist or cannot be found"
     end
@@ -316,15 +117,18 @@ function confirm -a msg yes_no
 
     switch $yes_no
 	case "yes"
-	    set option "[Y/n]"
+	    set option "Y/n"
 	    set default_stat "yes"
+	    set option_color brgreen
 	    set default_output 0
 	case "no"
-	    set option "[y/N]"
+	    set option "y/N"
 	    set default_stat "no"
+	    set option_color brred
 	    set default_output 1
 	case "def"
-	    set option "[y/n]"
+	    set option "y/n"
+	    set option_color bryellow
 	    set default_output 2
 	case "*"
 	    print_error "default option not specified, or is unrecognizable"
@@ -334,8 +138,8 @@ function confirm -a msg yes_no
     set prompt (printf "%s" $option)
     
     while true
-	print_status "confirm" $msg
-	read -l -P $prompt input
+	print_status $option $option_color $msg
+	read -l -P "" input
 	
 	if [ $input = "" ]
 	    if [ $default_output = 2 ]
@@ -354,21 +158,27 @@ function confirm -a msg yes_no
 end
 
 function fish_prompt
+    set -x prev_cmd $history[1]
     if test $status -eq 0
 	set prompt_color brcyan
     else
 	set prompt_color brred
+	if command -q $prev_cmd
+	    print_error "$prev_cmd failed for some reason"
+	end
     end
 
-    printf "%s%s %s%% " \
-	(set_color $fish_color_cwd) (basename $PWD) \
-	(set_color $prompt_color)
+    set_color $fish_color_cwd
+    set dir_name (basename $PWD)
+    echo -n "$dir_name "
+    set_color $prompt_color
+    echo -n "% "
 end
 
 printf "%s> Fish Shell related setup%s\n" (set_color bryellow) (set_color normal)
 create_function verify_args "verify_args"
 create_function fish_prompt "fish_prompt"
-print_status "fish" "set fish shell prompt"
+print_status "fish" "shell" "set fish shell prompt"
 create_function confirm "confirm"
 create_function print_status "print_status"
 create_function print_warning "print_warning"
@@ -376,12 +186,6 @@ create_function print_error "print_error"
 create_function create_function "create_function"
 create_function create_alias "create_alias"
 create_function destroy_function "destroy_function"
-echo ""
-
-printf "%s> Dependency management%s\n" (set_color bryellow) (set_color normal)
-create_function install_package "install_package"
-create_function verify_package "verify_package"
-create_function verify_deps "verify_deps"
 echo ""
 
 printf "%s> Fisher setup%s\n" (set_color bryellow) (set_color normal)
@@ -393,7 +197,7 @@ function install_fisher
     curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source \
 	&& fisher install jorgebucaran/fisher > fisher-install.log
     if test -e "$HOME/.config/fish/functions/fisher.fish"
-	print_status "success" "fisher was installed successfully"
+	print_status "success" "general" "fisher was installed successfully"
     end
 end
 
@@ -404,7 +208,7 @@ if confirm "Install fisher?" "yes"
 	    rm fisher-install.log
 	end
 	if not test -e fisher-install.log
-	    print_status "rm" "successfully removed fisher-install.log"
+	    print_status "remove" "files" "successfully removed fisher-install.log"
 	end
     end
 end
@@ -421,7 +225,7 @@ function install_fisher_pkg -a name path
     if not functions -q $name
 	fisher install $path
 	if functions -q $name
-	    print_status "fish" "successfully installed $name"
+	    print_status "shell:fish" "shell" "successfully installed $name"
 	else
 	    print_error "could not install $name"
 	    return 1
@@ -434,11 +238,6 @@ function install_fisher_pkg -a name path
 	source ~/dotfiles/setup-fish.fish
     end
 end
-
-if confirm "Install fisher packages?" "yes"
-    install_fisher_pkg "reload" "enji-miyake/reload.fish"
-end
-echo ""
 
 function ls -a dir
     exa --long --no-user --no-permissions --no-time --binary --header --group-directories-first $dir
@@ -524,36 +323,36 @@ function chper -a add_rem perm file
 	case "exec"
 	    if [ $change = "+" ]
 		if test -x $file
-		    print_status "chmod" "file is now executable"
+		    print_status "permissions" "files" "file is now executable"
 		    return 0
 		end
 	    else
 		if not test -x $file
-		    print_status "chmod" "file is no longer executable"
+		    print_status "permissions" "files" "file is no longer executable"
 		    return 0
 		end
 	    end
 	case "write"
 	    if [ $change = "+" ]
 		if test -w $file
-		    print_status "chmod" "file now writable"
+		    print_status "permissions" "files" "file now writable"
 		    return 0
 		end
 	    else
 		if not test -w $file
-		    print_status "chmod" "file no longer writable"
+		    print_status "permissions" "files" "file no longer writable"
 		    return 0
 		end
 	    end
 	case "read"
 	    if [ $change = "+" ]
 		if test -r $file
-		    print_status "chmod" "file now readable"
+		    print_status "permissions" "files" "file now readable"
 		    return 0
 		end
 	    else
 		if not test -r $file
-		    print_status "chmod" "file no longer readable"
+		    print_status "permissions" "files" "file no longer readable"
 		    return 0
 		end
 	    end
@@ -566,128 +365,42 @@ if confirm "Add alias for chmod?" "yes"
     create_alias chper "chmod" "chper"
 end
 
-function fileinfo -a perm file
-    set valid verify_args 2 (count $argv)
-    if not $valid; return 1; end
-
-    if [ $perm = "" ]
-	print_error "no file queries were specified"
-	return 1
+function start_emacs
+    set emacs_name "emacs --daemon"
+    ps -ef | grep -q "\b$emacs_name\b"
+    if test $status -ne 0
+	/sbin/emacs --daemon &> /dev/null
+	ps -ef | grep -q "\b$emacs_name\b"
+	if test $status -eq 0
+	    print_status "emacs:server" \
+		"common" \
+		"created emacs server successfully"
+	end
     end
 
-    if [ $file = "" ]
-	print_error "no file was specified"
+    if test $status -ne 0
+	print_error "could not start emacs server"
 	return 1
-
-    if not test -e $file
-	print_error "$file does not exist"
-	return 1
-    end
-
-    set pred "is not"
-
-    switch $perm
-	case "exec"
-	    set desc "an executable"
-	    if test -x $file
-		set pred "is"
-	    end
-	    set out (test -x $file)
-	    
-	case "write"
-	    set desc "writable"
-	    if test -w $file
-		set pred "is"
-	    end
-	    set out (test -w $file)
-	    
-	case "read"
-	    set desc "readable"
-	    if test -r $file
-		set pred "is"
-	    end
-	    set out (test -r $file)
-	    
-	case "dir"
-	    set desc "a directory"
-	    if test -d $file
-		set pred "is"
-	    end
-	    set out (test -d $file)
-	    
-	case "file"
-	    set desc "a regular file"
-	    if test -f $file
-		set pred "is"
-	    end
-	    set out (test -f $file)
-	    
-	case "link"
-	    set desc "a symbolic link"
-	    if test -L $file
-		set pred "is"
-	    end
-	    set out (test -L $file)
-	    
-	case "mine"
-	    if test -O $file
-		print_status "info" "$file belongs to me"
-		return 0
-	    else
-		print_status "info" "$file does not belong to me"
-		return 1
-	    end
-	    
-	case "empty"
-	    set desc "empty"
-	    if not test -s $file
-		set pred "is"
-	    end
-	    set out (not test -s $file)
-	    
-	case "tty"
-	    set desc "a TTY"
-	    if test -t $file
-		set pred "is"
-	    end
-	    set out (test -t $file)
-	    
-    end
-    
-    print_status "info" "$file $pred a $desc"
     end
 end
 
-if confirm "Add alias for retrieving file info?" "yes"
-    create_alias fileinfo "stat" "fileinfo"
+function emacs_handler --on-event emacs_done
+    $HOME/dotfiles/fish/run_c/run_c "fish -c start_emacs &> /dev/null" &
+    ps -ef | grep -q "\bemacs --daemon\b"
+    if test $status -eq 1
+	print_status "emacs:server" \
+	    "common" \
+	    "created emacs server successfully"
+   end    
 end
 
-function aur_install 
-    set valid verify_args 1 (count $argv)
-    if not $valid; return 1; end
-
-    set repo $argv[1]
-    git clone $repo &> /dev/null
-    set repo_path (path basename $repo)
-    set repo_path (string replace ".git" "" $repo_path)
-
-    if not test -e $repo_path
-	print_error "could not clone $repo"
-	return 1
-    end
-    print_status "git_clone" "successfully cloned $repo"
-
-    print_status "cd" "entered $repo_path"
-    cd $repo_path
-    makepkg &> /dev/null
-    set file (/sbin/ls -1 | grep "$repo_path" | grep ".zst")
-    
-    sudo pacman -U $file
-    print_status "info" "installed AUR package $repo_path"
-    cd ..
-    print_status "cd" "left $repo_path"
+function emacs
+    print_status "emacs:server" "common" "connecting to emacs server"
+    emacsclient -t $argv -a /sbin/emacs &> /dev/null
+    emit emacs_done
 end
 
-if confirm "Add alias for installation of AUR packages?" "yes"
-    create_alias aur_install "aur" "aur_install"
+if confirm "Add alias for starting emacsclient" "yes"
+    create_alias start_emacs "emacs_server" "start_emacs"
+    create_alias emacs "emacsclient" "emacs"
 end
