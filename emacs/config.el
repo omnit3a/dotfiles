@@ -64,6 +64,13 @@
     #'org-open-at-point))
 (setq org-support-shift-select t)
 
+;; Exit emacs
+(desktop-save-mode t)
+(defun exit-emacs-func (arg)
+  (interactive "p")
+  (desktop-save "~/.emacs.d/")
+  (suspend-frame))
+
 ;; Compilation Functions
 (defun compile-search (command)
   (interactive)
@@ -92,7 +99,7 @@
   (interactive "p")
   (if (get-buffer "*compilation*")
       (kill-buffer "*compilation*")
-    (save-buffers-kill-emacs)))
+    (exit-emacs-func)))
 
 (global-set-key (kbd "C-x m") 'compilation-function)
 (global-set-key (kbd "C-x C-c") 'close-binding)
@@ -112,17 +119,10 @@
 ;; C Programming Stuff
 (setq c-default-style "linux")
 
-;; Exit emacs
-(desktop-save-mode t)
-(defun exit-emacs-func (arg)
-  (interactive "p")
-  (desktop-save "~/.emacs.d/")
-  (suspend-frame))
-
 ;; Keybindings
 (global-set-key (kbd "C-y") 'kill-ring-save)
 (global-set-key (kbd "C-p") 'yank)
-(global-set-key (kbd "C-x C-c") 'exit-emacs-func)
 
 ;; Misc Config
+(desktop-save-mode t)
 (setq make-backup-files nil)
