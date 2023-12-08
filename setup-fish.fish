@@ -384,19 +384,25 @@ function start_emacs
     end
 end
 
+function run_bg_func
+    set valid verify_args 1 (count $argv)
+    if not $valid; return 1; end
+
+    $HOME/dotfiles/fish/run_c $argv[1] &
+    return $status
+end
+
+create_function run_bg_func "run_bg_func"
+
 function emacs_handler --on-event emacs_done
-    $HOME/dotfiles/fish/run_c/run_c "fish -c start_emacs &> /dev/null" &
-    ps -ef | grep -q "\bemacs --daemon\b"
-    if test $status -eq 1
-	print_status "emacs:server" \
-	    "common" \
-	    "created emacs server successfully"
-   end    
+    run_bg_func "fish -c start_emacs &> /dev/null"
 end
 
 function emacs
-    print_status "emacs:server" "common" "connecting to emacs server"
-    emacsclient -t $argv -a /sbin/emacs &> /dev/null
+    print_status "emacs:server" \
+	"common" \
+	"attempting to connect to emacs server"
+    emacsclient -t $argv
     emit emacs_done
 end
 
@@ -404,3 +410,5 @@ if confirm "Add alias for starting emacsclient" "yes"
     create_alias start_emacs "emacs_server" "start_emacs"
     create_alias emacs "emacsclient" "emacs"
 end
+
+cp $HOME/dotfiles/fish/* $HOME/.config/fish/
