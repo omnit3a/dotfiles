@@ -264,8 +264,6 @@ function is_emacs_running
     return $status
 end
 
-create_function is_emacs_running "is_emacs_running"
-
 function start_emacs
     print_status "emacs:server" \
 	"common" \
@@ -288,10 +286,6 @@ function start_emacs
     end
 end
 
-function emacs_handler --on-event emacs_done
-    run_bg_func "fish -c start_emacs &> /dev/null"
-end
-
 function emacs
     if not is_emacs_running
 	start_emacs
@@ -300,10 +294,10 @@ function emacs
 	"common" \
 	"attempting to connect to emacs server"
     emacsclient -t $argv
-    emit emacs_done
 end
 
 if confirm "Add alias for starting emacsclient" "yes"
+    create_function is_emacs_running "is_emacs_running"
     create_alias start_emacs "emacs_server" "start_emacs"
     create_alias emacs "emacsclient" "emacs"
 end
