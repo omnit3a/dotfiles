@@ -8,7 +8,8 @@
 
 OPTIONS=number_pad:0
 
-OPTIONS=role:samurai
+OPTIONS=role:barbarian
+OPTIONS=race:orc
 OPTIONS=gender:male
 
 OPTIONS=showexp,showscore,time,color
