@@ -47,9 +47,6 @@ AUTOPICKUP_EXCEPTION=">.*worthless piece of.*"
 AUTOPICKUP_EXCEPTION=">.*loadstone.*"
 AUTOPICKUP_EXCEPTION=">.*flint stone.*"
 
-OPTIONS=use_darkgray
-OPTIONS=hilite_pile
-
 MENUCOLOR=" blessed "=green
 MENUCOLOR=" holy "=green
 MENUCOLOR=" cursed "=red

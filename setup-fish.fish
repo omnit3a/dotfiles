@@ -295,6 +295,7 @@ function emacs
 	"attempting to connect to emacs server"
     emacsclient -t $argv
 end
+echo
 
 if confirm "Add alias for starting emacsclient" "yes"
     create_function is_emacs_running "is_emacs_running"
@@ -303,5 +304,21 @@ if confirm "Add alias for starting emacsclient" "yes"
 end
 echo
 
-cp $HOME/dotfiles/fish/* $HOME/.config/fish/
+function nethack
+    if command -q unnethack
+	unnethack
+	return 0
+    else
+	print_status "uninstalled" "linux" "unnethack is not installed"
+	return 1
+    end
+end
+
+if confirm "Using UnNetHack?" "yes"
+    create_alias nethack "unnethack" "nethack"
+end
+echo
+
+cp $HOME/dotfiles/fish/* $HOME/.config/fish/ &> /dev/null
 print_status "copy" "files" "copy fish config files"
+echo 
