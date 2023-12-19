@@ -23,6 +23,7 @@
 (setq scroll-bar-mode -1)
 (setq menu-bar-mode -1)
 (setq tool-bar-mode -1)
+(setq shell-font-lock-keywords nil)
 
 ;; Load Theme
 (load-theme 'gruvbox-dark-medium t)
