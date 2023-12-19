@@ -12,7 +12,6 @@ OPTIONS=role:barbarian
 OPTIONS=race:orc
 OPTIONS=gender:male
 
-OPTIONS=legacy:0
 OPTIONS=lootabc
 
 OPTIONS=showexp,showscore,time
