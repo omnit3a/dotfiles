@@ -26,7 +26,7 @@ OPTIONS=hilite_pet
 OPTIONS=pettype:none
 OPTIONS=dogname:Charles
 
-OPTIONS=disclose:yi -i +a +v -g -c
+OPTIONS=disclose:yi -i -a -v -g -c
 
 OPTIONS=autopickup,pickup_types:?!/$="
 ## http://nethackwiki.com/wiki/Autopickup_exceptions
@@ -50,12 +50,7 @@ MENUCOLOR=" cursed .* (being worn)"=orange&underline
 OPTIONS=sortloot:full
 OPTIONS=bones
 OPTIONS=windowtype:curses
-OPTIONS=term_rows:27
 
-OPTIONS=hitpointbar
-OPTIONS=statushilites:20
-OPTIONS=hilite_status:hitpoints/100%/brightgreen
-OPTIONS=hilite_status:hitpoints/<100%/green
-OPTIONS=hilite_status:hitpoints/<75%/yellow
-OPTIONS=hilite_status:hitpoints/<50%/orange
-OPTIONS=hilite_status:hitpoints/<25%/red
+OPTIONS=statuscolors
+STATUSCOLOR=burdened:yellow
+STATUSCOLOR=hp%100:lightgreen
