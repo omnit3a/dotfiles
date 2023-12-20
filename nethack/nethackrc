@@ -1,24 +1,18 @@
-# This is an example nethackrc file. You should edit this to suit your needs
-
-# This editor is vi-like. Type ESC a couple times, then ':q!' (without quotes)
-# to exit if you get stuck. To save, hit ESC and then ZZ or type ':wq'
-# (without quotes.) To insert text, hit 'i' to enter insert mode.
-
-# Here are some examples of reasonable defaults:
-
+OPTIONS=!legacy
 OPTIONS=number_pad:0
+OPTIONS=runmode:walk
 
 OPTIONS=role:barbarian
 OPTIONS=race:orc
 OPTIONS=gender:male
 
 OPTIONS=lootabc
+OPTIONS=pickup_burden:B
 
 OPTIONS=showexp,showscore,time
 OPTIONS=color
 OPTIONS=guicolor
 OPTIONS=menucolors
-OPTIONS=perm_invent
 OPTIONS=autodig,fruit:slime mold,boulder:0
 
 OPTIONS=msg_window:reversed
@@ -56,3 +50,12 @@ MENUCOLOR=" cursed .* (being worn)"=orange&underline
 OPTIONS=sortloot:full
 OPTIONS=bones
 OPTIONS=windowtype:curses
+OPTIONS=term_rows:27
+
+OPTIONS=hitpointbar
+OPTIONS=statushilites:20
+OPTIONS=hilite_status:hitpoints/100%/brightgreen
+OPTIONS=hilite_status:hitpoints/<100%/green
+OPTIONS=hilite_status:hitpoints/<75%/yellow
+OPTIONS=hilite_status:hitpoints/<50%/orange
+OPTIONS=hilite_status:hitpoints/<25%/red
