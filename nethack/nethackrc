@@ -13,6 +13,7 @@ OPTIONS=showexp,showscore,time
 OPTIONS=color
 OPTIONS=guicolor
 OPTIONS=menucolors
+OPTIONS=perm_invent
 OPTIONS=autodig,fruit:slime mold,boulder:0
 
 OPTIONS=msg_window:reversed
@@ -51,7 +52,5 @@ OPTIONS=sortloot:full
 OPTIONS=bones
 OPTIONS=windowtype:curses
 
-OPTIONS=statuscolors
-STATUSCOLOR=burdened:yellow
-STATUSCOLOR=satiated:green,hungry:yellow,weak:red
-STATUSCOLOR=hp%100:green,hp%75:yellow,hp%50:orange,hp%25:red&blink
+OPTIONS=scroll_margin:0
+OPTIONS=fullscreen
