@@ -2,6 +2,9 @@ OPTIONS=!legacy
 OPTIONS=number_pad:0
 OPTIONS=runmode:walk
 
+OPTIONS=role:knight
+OPTIONS=gender:male
+
 OPTIONS=lootabc
 OPTIONS=pickup_burden:B
 
