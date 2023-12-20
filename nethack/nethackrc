@@ -53,4 +53,5 @@ OPTIONS=windowtype:curses
 
 OPTIONS=statuscolors
 STATUSCOLOR=burdened:yellow
-STATUSCOLOR=hp%100:lightgreen
+STATUSCOLOR=satiated:green,hungry:yellow,weak:red
+STATUSCOLOR=hp%100:green,hp%75:yellow,hp%50:orange,hp%25:red&blink
