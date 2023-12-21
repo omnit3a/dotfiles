@@ -319,6 +319,15 @@ if confirm "Using UnNetHack?" "yes"
 end
 echo
 
+function make
+    command make --no-print-directory $argv
+end
+
+if confirm "Add alias for make" "yes"
+    create_alias make "make --no-print-directory" "make"
+end
+echo
+
 cp $HOME/dotfiles/fish/* $HOME/.config/fish/ &> /dev/null
 print_status "copy" "files" "copy fish config files"
 echo 
