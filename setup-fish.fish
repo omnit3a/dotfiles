@@ -320,11 +320,11 @@ end
 echo
 
 function make
-    command make --no-print-directory -j8 $argv
+    command make --no-print-directory -j8 -Otarget $argv
 end
 
 if confirm "Add alias for make" "yes"
-    create_alias make "make --no-print-directory -j8" "make"
+    create_alias make "make --no-print-directory -j8 -Otarget " "make"
 end
 echo
 
